@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/blog.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="sidebar">
+        <h2><a href="{% url 'blog:post_list' %}"> My blog</a></h2>
+        <p>This is my blog.</p>
+        <p>{% current_time "%Y-%m-%d %I:%M %p"  %}</p>
+{#        <p>I've writen {% total_posts %}</p>   {#  convert tag or var to var #}
+        <div>
+            {% show_latest_posts 5 %}
+        </div>
+        <div>
+            <h2>Most Common Posts</h2>
+                                                                {% get_most_commented_posts as most_posts %}
+            <ol>
+                {% for post in most_posts %}
+                    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<h2>latest Post have been publish</h2>
+<ol>
+    {% for post in latest_posts %}
+        <li><a href="{{   post.get_absolute_url }}" >{{ post.title }}</a></li>
+    {% endfor %}
+</ol>
